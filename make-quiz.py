@@ -60,5 +60,10 @@ for quiz_round in questions:
 
             qmd_content += "\n\n"
 
+        # Add speaker notes
+        qmd_content += f"::: {{.notes}}\n\
+{lingquiztics.questions.make_text(question)}.\n\
+:::\n\n"
+
 with open("presentation.qmd", "wt") as writer:
     writer.write(qmd_content)
