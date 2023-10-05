@@ -40,6 +40,10 @@ for quiz_round in questions:
             for image_file in question["images"]:
                 qmd_content += f"![]({image_file})\n"
 
+        if "audio" in question:
+            audio_file = question["audio"]
+            qmd_content += f"<audio src='{audio_file}' controls></audio>\n\n"
+
         # Question itself (only displays on advance)
         qmd_content += f"\n\n. . .\n\n{question['question']}\n\n"
 
