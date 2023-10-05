@@ -44,6 +44,10 @@ for quiz_round in questions:
             audio_file = question["audio"]
             qmd_content += f"<audio src='{audio_file}' controls></audio>\n\n"
 
+        if "video" in question:
+            video_file = question["video"]
+            qmd_content += f"<video src='{video_file}' controls></video>\n\n"
+
         # Question itself (only displays on advance)
         qmd_content += f"\n\n. . .\n\n{question['question']}\n\n"
 
