@@ -5,3 +5,6 @@ def load(path):
         content = reader.read()
 
     return json.loads(content)
+
+def make_text(question):
+    return question["description"] + " " + question["question"]
