@@ -55,8 +55,8 @@ for quiz_round in questions:
         # For multiple choice questions
         if "choices" in question:
             for c_index, choice in enumerate(question["choices"]):
-                letter = lingquiztics.tools.index_to_letter(c_index)
-                qmd_content += f"{letter}. {choice}\n"
+                letter = lingquiztics.tools.index_to_letter(c_index).upper()
+                qmd_content += f"{letter}.  {choice}\n"
 
             qmd_content += "\n\n"
 
