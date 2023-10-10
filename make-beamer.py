@@ -36,5 +36,9 @@ for quiz_round in questions:
         for index, question in enumerate(questions):
             qmd_content += lingquiztics.questions.output_question(question, index, revision_round)
 
+        if not revision_round:
+            qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
+
+
 with open("presentation.qmd", "wt") as writer:
     writer.write(qmd_content)
