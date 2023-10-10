@@ -12,17 +12,24 @@ parser.add_argument('questions', type=str,
 parser.add_argument('sheets_header', type=str,
 					help='Path to the Quarto file containing the answer sheets header')
 parser.add_argument('--team_names', type=str, nargs='?', default=None, help='Path to text file with team names (one per line)')
+parser.add_argument('--key', type=bool, nargs='?', default=False, help='Whether to print a key sheet')
 args = parser.parse_args()
 
 with open(args.sheets_header, "rt") as reader:
     qmd_content = reader.read()
 
+key = args.key is not False
+
 qmd_content = f"{qmd_content}\n\n"
 
 rounds = lingquiztics.questions.load(args.questions)
 
-team_names = [ " " ]
-if args.team_names is not None:
+if not key:
+    team_names = [ " " ]
+else:
+    team_names = [ "key" ]
+
+if args.team_names is not None and not key:
     with open(args.team_names, "rt") as reader:
         team_names = reader.read().split("\n")
 
@@ -46,7 +53,11 @@ for team_name in team_names:
 \hline\n"
 
         for index, question in enumerate(questions):
-            qmd_content += f"{index + 1} & \\\\ \\hline\n"
+            row_content = ""
+            if key:
+                row_content = f"\\small {question['answer']}"
+
+            qmd_content += f"{index + 1} & {row_content} \\\\ \\hline\n"
 
         qmd_content += "\\end{tabularx}\n\
 ```\n\n"
