@@ -24,12 +24,15 @@ questions = lingquiztics.questions.load("questions.json")
 for quiz_round in questions:
     print(quiz_round)
 
-    # Add rounds section
-    qmd_content += f"# {quiz_round}\n\n"
-
     questions = questions[quiz_round]
 
     for revision_round in [ False, True ]:
+        # Add rounds section
+        if not revision_round:
+            qmd_content += f"# {quiz_round}\n\n"
+        else:
+            qmd_content += f"# {quiz_round} (revision)\n\n"
+
         for index, question in enumerate(questions):
             qmd_content += lingquiztics.questions.output_question(question, index, revision_round)
 
