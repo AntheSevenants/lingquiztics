@@ -11,5 +11,5 @@ Code for automating the KU Leuven Linguistics quiz ("Lingquiztics")
 - ~~video support~~
 - ~~multiple choice support~~
 - ~~speaker notes~~
-- revision round
+- ~~revision round~~
 - durante round
