@@ -29,8 +29,9 @@ for quiz_round in questions:
 
     questions = questions[quiz_round]
 
-    for index, question in enumerate(questions):
-        qmd_content += lingquiztics.questions.output_question(question, index)
+    for revision_round in [ False, True ]:
+        for index, question in enumerate(questions):
+            qmd_content += lingquiztics.questions.output_question(question, index, revision_round)
 
 with open("presentation.qmd", "wt") as writer:
     writer.write(qmd_content)
