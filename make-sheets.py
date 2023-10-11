@@ -1,4 +1,7 @@
 import argparse
+import subprocess
+import os
+
 import lingquiztics.questions
 import lingquiztics.tools
 
@@ -13,7 +16,10 @@ parser.add_argument('sheets_header', type=str,
 					help='Path to the Quarto file containing the answer sheets header')
 parser.add_argument('--team_names', type=str, nargs='?', default=None, help='Path to text file with team names (one per line)')
 parser.add_argument('--key', type=bool, nargs='?', default=False, help='Whether to print a key sheet')
+parser.add_argument('--output_file', type=str, nargs='?', default="answer_sheets.pdf", help='Filename of the answer sheets')
 args = parser.parse_args()
+
+TEMP_FILENAME = "answer_sheets.qmd"
 
 with open(args.sheets_header, "rt") as reader:
     qmd_content = reader.read()
@@ -81,3 +87,10 @@ for team_name in team_names:
 
     with open("answer_sheets.qmd", "wt") as writer:
         writer.write(qmd_content)
+
+subprocess.run(["quarto",
+                "render", TEMP_FILENAME,
+                "--to", "pdf",
+                "-o", args.output_file])
+
+os.remove(TEMP_FILENAME)
