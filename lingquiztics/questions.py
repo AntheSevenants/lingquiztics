@@ -50,8 +50,6 @@ def output_question(question, index, revision_round=False, mc_bold=False):
         if revision_round:
             qmd_content += "::: {.nonincremental}\n"
 
-        answer_index = question["choices"].index(question["answer"])
-
         for c_index, choice in enumerate(question["choices"]):
             letter = lingquiztics.tools.index_to_letter(c_index).upper()
             correct_index = question["choices"].index(question["answer"])
