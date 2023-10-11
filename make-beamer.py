@@ -28,12 +28,12 @@ with open(args.beamer_header, "rt") as reader:
 
 qmd_content = f"{qmd_content}\n\n"
 
-questions = lingquiztics.questions.load("questions.json")
+rounds = lingquiztics.questions.load("questions.json")
 
-for quiz_round in questions:
+for quiz_round in rounds:
     print(quiz_round)
 
-    questions = questions[quiz_round]
+    questions = rounds[quiz_round]
 
     for revision_round in [ False, True ]:
         if not revision_round and quiz_round.startswith("durante"):
