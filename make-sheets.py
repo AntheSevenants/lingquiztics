@@ -96,12 +96,12 @@ for team_name in team_names:
             if key:
                 # Regular answesr
                 if "choices" not in question:
-                    row_content = f"\\small {question['answer']}"
+                    row_content = f"{question['answer']}"
                 # MC answer
                 else:
                     correct_index = question["choices"].index(question["answer"])
                     correct_letter = lingquiztics.tools.index_to_letter(correct_index).upper()
-                    row_content = f"\\small {correct_letter}"
+                    row_content = f"{correct_letter}"
 
             elif "choices" in question:
                 row_content = " \\hspace{0.5cm} ".join([ lingquiztics.tools.index_to_letter(i).upper() 
