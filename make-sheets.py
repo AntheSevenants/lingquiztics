@@ -82,6 +82,7 @@ for team_name in team_names:
             qmd_content += f"{index + 1} & {row_content} \\\\ \\hline\n"
 
         qmd_content += "\\end{tabularx}\n\
+\\endgroup\n\
 ```\n\n"
 
         if round_no + 1 != len(rounds):
