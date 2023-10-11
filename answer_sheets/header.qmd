@@ -10,5 +10,5 @@ format:
           \usepackage{graphicx}
           \pagenumbering{gobble}
           \usepackage{fontspec}
-          \setmainfont{answer_sheets/Arial.ttf}
+          \setmainfont[ExternalLocation=answer_sheets/]{Arial.ttf}
 ---
