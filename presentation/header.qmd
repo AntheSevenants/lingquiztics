@@ -4,8 +4,8 @@ author: "Thomas and Anthe"
 format:
   revealjs:
     incremental: true
-    logo: beamer/logo.png
+    logo: quiz/logo.png
     footer: "Linguiztics 2023"
     transition: fade
-    css: beamer/style.css
+    css: presentation/style.css
 ---
