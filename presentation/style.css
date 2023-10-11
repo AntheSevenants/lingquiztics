@@ -1,0 +1,11 @@
+.center {
+    text-align: center;
+}
+
+.reveal ol[type=A] {
+    list-style-type: upper-alpha;
+}
+
+.blur {
+    filter: blur(3.5px);
+}
