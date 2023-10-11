@@ -33,6 +33,7 @@ for quiz_round in questions:
 
     for revision_round in [ False, True ]:
         if not revision_round and quiz_round.startswith("durante"):
+            qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
             continue
 
         # Add rounds section
