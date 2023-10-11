@@ -35,10 +35,11 @@ for quiz_round in rounds:
 
     questions = rounds[quiz_round]
 
-    for revision_round in [ False, True ]:
-        if not revision_round and quiz_round.startswith("durante_"):
-            quiz_round = quiz_round.replace("durante_", "")
+    durante = quiz_round.startswith("durante_")
+    quiz_round = quiz_round.replace("durante_", "")
 
+    for revision_round in [ False, True ]:
+        if not revision_round and durante:
             qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
             continue
 
