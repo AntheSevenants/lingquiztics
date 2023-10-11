@@ -54,8 +54,20 @@ for team_name in team_names:
 
         for index, question in enumerate(questions):
             row_content = ""
+
             if key:
-                row_content = f"\\small {question['answer']}"
+                # Regular answesr
+                if "choices" not in question:
+                    row_content = f"\\small {question['answer']}"
+                # MC answer
+                else:
+                    correct_index = question["choices"].index(question["answer"])
+                    correct_letter = lingquiztics.tools.index_to_letter(correct_index).upper()
+                    row_content = f"\\small {correct_letter}"
+
+            elif "choices" in question:
+                row_content = " \\hspace{0.5cm} ".join([ lingquiztics.tools.index_to_letter(i).upper() 
+                    for i in range(len(question["choices"])) ])
 
             qmd_content += f"{index + 1} & {row_content} \\\\ \\hline\n"
 
