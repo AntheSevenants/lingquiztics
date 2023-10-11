@@ -49,14 +49,42 @@ for team_name in team_names:
 
         questions = rounds[quiz_round]
 
-        qmd_content += f"```{{=latex}}\n\
-\\begin{{tabularx}}{{\\textwidth}}{{c >{{\\raggedleft\\arraybackslash}}X}}\n\
-{quiz_round} & \\tiny {team_name}\n\
-\\end{{tabularx}}\n\
+        durante = quiz_round.startswith("durante_")
+        quiz_round = quiz_round.replace("durante_", "")
+
+        qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
+        
+        if durante:
+            qmd_content += "```{=latex}\n\
+{\n\
+\Large\n\
 ```\n\n"
+
+            for index, question in enumerate(questions):
+                qmd_content += f"1. {question['question']}\n\n"
+
+                if "choices" in question:
+                    for c_index, choice in enumerate(question["choices"]):
+                        letter = lingquiztics.tools.index_to_letter(c_index).upper()
+                        qmd_content += f"{letter}.  {choice}\n"
+                
+                qmd_content += "\n\
+```{=latex}\n\
+\\filbreak\n\
+```\n\n\n"
+            
+            qmd_content += "```{=latex}\n\
+}\n\
+```\n\n"
+
+            # Add pagebreak
+            qmd_content += "\n\n{{< pagebreak >}}\n\n"
+
+            qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
 
         qmd_content += "```{=latex}\n\
 \\begingroup\n\
+{\Huge\n\
 \\setlength{\\tabcolsep}{20pt}\n\
 \\renewcommand{\\arraystretch}{1.5}\n\
 \\begin{tabularx}{\\textwidth}{|c|X|}\n\
@@ -82,6 +110,7 @@ for team_name in team_names:
             qmd_content += f"{index + 1} & {row_content} \\\\ \\hline\n"
 
         qmd_content += "\\end{tabularx}\n\
+}\n\
 \\endgroup\n\
 ```\n\n"
 
