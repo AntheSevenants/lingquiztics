@@ -61,7 +61,7 @@ for team_name in team_names:
 ```\n\n"
 
             for index, question in enumerate(questions):
-                qmd_content += f"1. {question['question']}\n\n"
+                qmd_content += f"{index + 1}. {question['question']}\n\n"
 
                 if "choices" in question:
                     for c_index, choice in enumerate(question["choices"]):
