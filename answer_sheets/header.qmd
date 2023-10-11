@@ -3,7 +3,6 @@ format:
   pdf:
     colorlinks: true
     tbl-colwidths: [10,80]
-    fontsize: 30pt
     include-in-header:
       - text: |
           \usepackage{tabularx}
