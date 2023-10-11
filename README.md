@@ -14,3 +14,4 @@ Code for automating the KU Leuven Linguistics quiz ("Lingquiztics")
 - ~~speaker notes~~
 - ~~revision round~~
 - durante round
+- styling
