@@ -32,6 +32,9 @@ for quiz_round in questions:
     questions = questions[quiz_round]
 
     for revision_round in [ False, True ]:
+        if not revision_round and quiz_round.startswith("durante"):
+            continue
+
         # Add rounds section
         if not revision_round:
             qmd_content += f"# {quiz_round}\n\n"
