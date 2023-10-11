@@ -85,7 +85,7 @@ for team_name in team_names:
 
     qmd_content += "\n\n{{< pagebreak >}}\n\n"
 
-    with open("answer_sheets.qmd", "wt") as writer:
+    with open(TEMP_FILENAME, "wt") as writer:
         writer.write(qmd_content)
 
 subprocess.run(["quarto",
