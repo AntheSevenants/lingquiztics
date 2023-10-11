@@ -1,5 +1,7 @@
-import json
+import subprocess
+import os
 import argparse
+
 import lingquiztics.questions
 import lingquiztics.tools
 
@@ -12,7 +14,10 @@ parser.add_argument('questions', type=str,
 					help='Path to the JSON file containing the questions')
 parser.add_argument('beamer_header', type=str,
 					help='Path to the Quarto file containing the presentation header')
+parser.add_argument('--output_file', type=str, nargs='?', default="presentation.html", help='Filename of the presentation')
 args = parser.parse_args()
+
+TEMP_FILENAME = "presentation.qmd"
 
 with open(args.beamer_header, "rt") as reader:
     qmd_content = reader.read()
@@ -40,5 +45,12 @@ for quiz_round in questions:
             qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
 
 
-with open("presentation.qmd", "wt") as writer:
+with open(TEMP_FILENAME, "wt") as writer:
     writer.write(qmd_content)
+
+subprocess.run(["quarto",
+                "render", TEMP_FILENAME,
+                "--to", "revealjs",
+                "-o", args.output_file])
+
+os.remove(TEMP_FILENAME)
