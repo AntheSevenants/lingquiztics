@@ -3,10 +3,10 @@ Code for automating the KU Leuven Linguistics quiz ("Lingquiztics")
 
 ## TODO
 
-- Quarto chaining
+- ~~Quarto chaining~~
 - ~~beamer conversion~~
 - ~~question sheet maker~~
-- print multiple choice answers on answering sheet
+- ~~print multiple choice answers on answering sheet~~
 - ~~picture support~~
 - ~~gallery support~~
 - ~~audio support~~
