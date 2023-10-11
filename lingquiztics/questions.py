@@ -8,6 +8,9 @@ def load(path):
     return json.loads(content)
 
 def make_text(question):
+    if not "description" in question:
+        return question["question"]
+
     return question["description"] + " " + question["question"]
 
 def output_question(question, index, revision_round=False, mc_bold=False):
