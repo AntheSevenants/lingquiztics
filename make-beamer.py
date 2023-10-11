@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 import argparse
 
 import lingquiztics.questions
@@ -15,9 +16,12 @@ parser.add_argument('questions', type=str,
 parser.add_argument('beamer_header', type=str,
 					help='Path to the Quarto file containing the presentation header')
 parser.add_argument('--output_file', type=str, nargs='?', default="presentation.html", help='Filename of the presentation')
+parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
 args = parser.parse_args()
 
 TEMP_FILENAME = "presentation.qmd"
+
+no_chain = args.no_chain is not False
 
 with open(args.beamer_header, "rt") as reader:
     qmd_content = reader.read()
@@ -51,6 +55,9 @@ for quiz_round in questions:
 
 with open(TEMP_FILENAME, "wt") as writer:
     writer.write(qmd_content)
+
+if no_chain:
+    sys.exit()
 
 subprocess.run(["quarto",
                 "render", TEMP_FILENAME,
