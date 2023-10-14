@@ -2,6 +2,7 @@ import argparse
 import subprocess
 import os
 import sys
+import math
 
 import lingquiztics.questions
 import lingquiztics.tools
@@ -55,32 +56,66 @@ for team_name in team_names:
         qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
         
         if durante:
-            qmd_content += "```{=latex}\n\
+            # Image round
+            if "images" in questions[0]:
+                # Header
+                qmd_content += "```{=latex}\n\
+\\begingroup\n\
+\\setlength{\\tabcolsep}{20pt}\n\
+\\renewcommand{\\arraystretch}{1.5}\n\
+\\begin{tabularx}{\\textwidth}{|>{\\centering\\arraybackslash}X|>{\\centering\\arraybackslash}X|}\n\
+\\hline\n"
+                questions_no = len(questions)
+                pair_count = math.ceil(questions_no / 2)
+                
+                for q_index in range(pair_count):
+                    l_index = 2 * q_index + 1
+                    r_index = 2 * q_index + 2
+
+                    left_question = questions[l_index - 1]
+                    right_question = questions[r_index - 1]
+
+                    left_image = left_question["images"][0]
+                    right_image = right_question["images"][0]
+
+                    qmd_content += f"& \\\\\n\
+\\includegraphics[width=0.4\\textwidth]{{{left_image}}} & \\includegraphics[width=0.4\\textwidth]{{{right_image}}} \\\\\n\
+{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
+\\hline\n"
+
+                qmd_content += "\\end{tabularx}\n\
+\\endgroup\n\
+```\n\n"
+
+                # No separate answering sheet is needed
+                continue
+            else:
+                qmd_content += "```{=latex}\n\
 {\n\
 \Large\n\
 ```\n\n"
 
-            for index, question in enumerate(questions):
-                qmd_content += f"{index + 1}. {question['question']}\n\n"
+                for index, question in enumerate(questions):
+                    qmd_content += f"{index + 1}. {question['question']}\n\n"
 
-                if "choices" in question:
-                    for c_index, choice in enumerate(question["choices"]):
-                        letter = lingquiztics.tools.index_to_letter(c_index).upper()
-                        qmd_content += f"{letter}.  {choice}\n"
+                    if "choices" in question:
+                        for c_index, choice in enumerate(question["choices"]):
+                            letter = lingquiztics.tools.index_to_letter(c_index).upper()
+                            qmd_content += f"{letter}.  {choice}\n"
                 
-                qmd_content += "\n\
+                    qmd_content += "\n\
 ```{=latex}\n\
 \\filbreak\n\
 ```\n\n\n"
             
-            qmd_content += "```{=latex}\n\
+                qmd_content += "```{=latex}\n\
 }\n\
 ```\n\n"
 
-            # Add pagebreak
-            qmd_content += "\n\n{{< pagebreak >}}\n\n"
+                # Add pagebreak
+                qmd_content += "\n\n{{< pagebreak >}}\n\n"
 
-            qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
+                qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
 
         qmd_content += "```{=latex}\n\
 \\begingroup\n\
