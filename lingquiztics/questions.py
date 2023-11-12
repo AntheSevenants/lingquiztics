@@ -90,9 +90,14 @@ def output_question(question, index, revision_round=False, mc_bold=False):
 
         qmd_content += "\n\n"
 
+    if not revision_round:
+        revision_text = lingquiztics.questions.make_text(question)
+    else:
+        revision_text = lingquiztics.questions.make_text_revision(question)
+
     # Add speaker notes
     qmd_content += f"::: {{.notes}}\n\
-{lingquiztics.questions.make_text(question)}.\n\
+{revision_text}\n\
 :::\n\n"
     
     if revision_round and "choices" in question and not mc_bold:
