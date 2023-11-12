@@ -42,6 +42,12 @@ def output_question(question, index, revision_round=False, mc_bold=False):
         for image_file in question[images_key]:
             qmd_content += f"![]({image_file})\n"
 
+    # Question itself (only displays on advance)
+    if not revision_round:
+        qmd_content += f"\n\n. . ."
+    qmd_content += f"\n\n{question['question']}\n\n"
+
+    # Add audio/video after question (more fair)
     if audio_key in question:
         audio_file = question[audio_key]
         qmd_content += f". . .\n\n"
@@ -51,11 +57,6 @@ def output_question(question, index, revision_round=False, mc_bold=False):
         video_file = question[video_key]
         qmd_content += f". . .\n\n"
         qmd_content += f"<video src='{video_file}' controls></video>\n\n"
-
-    # Question itself (only displays on advance)
-    if not revision_round:
-        qmd_content += f"\n\n. . ."
-    qmd_content += f"\n\n{question['question']}\n\n"
 
     if not "choices" in question and revision_round:
         qmd_content += f"\n\n. . .\n\n**{question['answer']}**\n\n"
