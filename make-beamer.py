@@ -28,7 +28,7 @@ with open(args.beamer_header, "rt") as reader:
 
 qmd_content = f"{qmd_content}\n\n"
 
-rounds = lingquiztics.questions.load("questions.json")
+rounds = lingquiztics.questions.load(args.questions)
 
 for quiz_round in rounds:
     print(quiz_round)
