@@ -8,4 +8,5 @@ format:
     footer: "Linguiztics 2023"
     transition: fade
     css: presentation/style.css
+include-after-body: presentation/fragmentPlay.html
 ---
