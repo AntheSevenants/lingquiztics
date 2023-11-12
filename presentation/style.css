@@ -15,3 +15,8 @@
     margin-right: auto !important;
     display: block;
 }
+
+.img-small {
+    max-height: 20% !important;
+    max-width: 20% !important;
+}

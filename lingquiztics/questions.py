@@ -47,8 +47,14 @@ def output_question(question, index, revision_round=False, mc_bold=False):
 
     # If there are images in the question, add them all
     if images_key in question:
+        suffix = ""
+        if len(question[images_key]) == 1:
+            suffix = "{.img-center}"
+        else:
+            suffix = "{.img-small}"
+
         for image_file in question[images_key]:
-            qmd_content += f"![]({image_file}){{.img-center}}\n"
+            qmd_content += f"![]({image_file}){suffix}\n"
 
     # Question itself (only displays on advance)
     if not revision_round:
