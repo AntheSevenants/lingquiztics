@@ -15,6 +15,6 @@ Code for automating the KU Leuven Linguistics quiz ("Lingquiztics")
 - ~~speaker notes~~
 - ~~revision round~~
 - ~~durante round~~
-- different media on correction round
+- ~~different media on correction round~~
 - explanation on correction round
 - styling
