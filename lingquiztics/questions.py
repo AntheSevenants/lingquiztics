@@ -31,7 +31,7 @@ def output_question(question, index, revision_round=False, mc_bold=False):
         raise Exception("answer attribute not found in question")
 
     # Add question number to slide
-    qmd_content += f"## Question {index + 1}\n\n"
+    qmd_content += f"## Question {index + 1}{{.text-center}}\n\n"
 
     # We can show different media if necessary
     images_key = "images"
@@ -48,7 +48,7 @@ def output_question(question, index, revision_round=False, mc_bold=False):
     # If there are images in the question, add them all
     if images_key in question:
         for image_file in question[images_key]:
-            qmd_content += f"![]({image_file})\n"
+            qmd_content += f"![]({image_file}){{.img-center}}\n"
 
     # Question itself (only displays on advance)
     if not revision_round:
