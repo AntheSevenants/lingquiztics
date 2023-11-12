@@ -25,17 +25,31 @@ def output_question(question, index, revision_round=False, mc_bold=False):
     # Add question number to slide
     qmd_content += f"## Question {index + 1}\n\n"
 
+    # We can show different media if necessary
+    images_key = "images"
+    audio_key = "audio"
+    video_key = "video"
+    if revision_round:
+        if "images_revision" in question:
+            images_key = "images_revision"
+        if "audio_revision" in question:
+            audio_key = "audio_revision"
+        if "video_revision" in question:
+            video_key = "video_revision"
+
     # If there are images in the question, add them all
-    if "images" in question:
-        for image_file in question["images"]:
+    if images_key in question:
+        for image_file in question[images_key]:
             qmd_content += f"![]({image_file})\n"
 
-    if "audio" in question:
-        audio_file = question["audio"]
-        qmd_content += f"<audio src='{audio_file}' controls></audio>\n\n"
+    if audio_key in question:
+        audio_file = question[audio_key]
+        qmd_content += f". . .\n\n"
+        qmd_content += f"<audio style='display: none;' src='{audio_file}' controls></audio>\n\n"
 
-    if "video" in question:
-        video_file = question["video"]
+    if video_key in question:
+        video_file = question[video_key]
+        qmd_content += f". . .\n\n"
         qmd_content += f"<video src='{video_file}' controls></video>\n\n"
 
     # Question itself (only displays on advance)
