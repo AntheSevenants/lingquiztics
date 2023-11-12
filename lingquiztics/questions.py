@@ -13,6 +13,14 @@ def make_text(question):
 
     return question["description"] + " " + question["question"]
 
+def make_text_revision(question):
+    text_revision = f"{question['question']}\n\n{question['answer']}"
+
+    if "explanation" in question:
+        text_revision += f"\n\n{question['explanation']}"
+
+    return text_revision
+
 def output_question(question, index, revision_round=False, mc_bold=False):
     qmd_content = ""
 
