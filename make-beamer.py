@@ -17,6 +17,7 @@ parser.add_argument('beamer_header', type=str,
 					help='Path to the Quarto file containing the presentation header')
 parser.add_argument('--output_file', type=str, nargs='?', default="presentation.html", help='Filename of the presentation')
 parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
+parser.add_argument('--keep_md', type=bool, nargs='?', default=False, help='Whether to keep the Markdown file')
 args = parser.parse_args()
 
 TEMP_FILENAME = "presentation.qmd"
@@ -67,4 +68,5 @@ subprocess.run(["quarto",
                 "--to", "revealjs",
                 "-o", args.output_file])
 
-os.remove(TEMP_FILENAME)
+if not args.keep_md:
+    os.remove(TEMP_FILENAME)
