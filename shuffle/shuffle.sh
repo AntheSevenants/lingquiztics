@@ -1,0 +1,1 @@
+docker run --rm -v `pwd`:/app -w /app minidocks/imagemagick sh do_shuffle.sh
