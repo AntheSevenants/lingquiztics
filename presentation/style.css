@@ -16,6 +16,12 @@
     display: block;
 }
 
+.img-duo {
+    max-height: 80% !important;
+    max-width: 10vw !important;
+}
+
+
 .img-small {
     max-height: 20% !important;
     max-width: 20% !important;

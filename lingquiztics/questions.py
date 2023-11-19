@@ -50,6 +50,8 @@ def output_question(question, index, revision_round=False, mc_bold=False):
         suffix = ""
         if len(question[images_key]) == 1:
             suffix = "{.img-center}"
+        elif len(question[images_key]) == 2:
+            suffix = "{.img-duo}"
         else:
             suffix = "{.img-small}"
 
