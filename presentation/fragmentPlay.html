@@ -2,7 +2,7 @@
 <script>
 function playCurrentFragment() {
     [].slice.call( document.querySelectorAll( '.fragment' ) ).forEach( function( fragment ) {
-      var audio = fragment.querySelector( 'audio' );
+      var audio = fragment.querySelector( 'audio, video' );
       if( audio ) {
         if( fragment.classList.contains( 'current-fragment' ) ) {
           audio.play();
