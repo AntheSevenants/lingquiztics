@@ -10,4 +10,10 @@ format:
           \pagenumbering{gobble}
           \usepackage{fontspec}
           \setmainfont[ExternalLocation=answer_sheets/]{Arial.ttf}
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
+      - heightrounded
 ---
