@@ -55,16 +55,22 @@ for team_name in team_names:
 
         qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
         
-        if durante:
-            # Image round
-            if "images" in questions[0]:
-                # Header
-                qmd_content += "```{=latex}\n\
+        table_start = "```{=latex}\n\
 \\begingroup\n\
 \\setlength{\\tabcolsep}{20pt}\n\
 \\renewcommand{\\arraystretch}{1.5}\n\
 \\begin{tabularx}{\\textwidth}{|>{\\centering\\arraybackslash}X|>{\\centering\\arraybackslash}X|}\n\
 \\hline\n"
+
+        table_end = "\\end{tabularx}\n\
+\\endgroup\n\
+```\n\n"
+
+        if durante:
+            # Image round
+            if "images" in questions[0]:
+                # Header
+                qmd_content += table_start
                 questions_no = len(questions)
                 pair_count = math.ceil(questions_no / 2)
                 
@@ -79,13 +85,16 @@ for team_name in team_names:
                     right_image = right_question["images"][0]
 
                     qmd_content += f"& \\\\\n\
-\\includegraphics[width=0.4\\textwidth]{{{left_image}}} & \\includegraphics[width=0.4\\textwidth]{{{right_image}}} \\\\\n\
+\\includegraphics[width=0.23\\textwidth]{{{left_image}}} & \\includegraphics[width=0.23\\textwidth]{{{right_image}}} \\\\\n\
 {l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
 \\hline\n"
+                    
+                    if q_index == 2:
+                         qmd_content += table_end
+                         qmd_content += "\n\n{{< pagebreak >}}\n\n"
+                         qmd_content += table_start
 
-                qmd_content += "\\end{tabularx}\n\
-\\endgroup\n\
-```\n\n"
+                qmd_content += table_end
 
                 # No separate answering sheet is needed
                 continue
