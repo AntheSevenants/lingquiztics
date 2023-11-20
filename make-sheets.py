@@ -96,6 +96,7 @@ for team_name in team_names:
                          qmd_content += table_start
 
                 qmd_content += table_end
+                qmd_content += "\n\n{{< pagebreak >}}\n\n"
 
                 # No separate answering sheet is needed
                 continue
