@@ -72,7 +72,7 @@ def output_question(question, index, revision_round=False, mc_bold=False):
     if video_key in question:
         video_file = question[video_key]
         qmd_content += f". . .\n\n"
-        qmd_content += f"<video src='{video_file}' controls></video>\n\n"
+        qmd_content += f"<video src='{video_file}'></video>\n\n"
 
     if not "choices" in question and revision_round:
         qmd_content += f"\n\n. . .\n\n**{question['answer']}**\n\n"
