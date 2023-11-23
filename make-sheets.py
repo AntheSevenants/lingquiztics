@@ -161,6 +161,13 @@ for team_name in team_names:
 \\endgroup\n\
 ```\n\n"
 
+        if not durante:
+            qmd_content += "```{=latex}\n\
+\\begin{center}\n\
+\\LARGE $\\square$ DOUBLE MY POINTS FOR THIS ROUND\n\
+\\end{center}\n\
+```"
+
         if round_no + 1 != len(rounds):
             qmd_content += "\n\n{{< pagebreak >}}\n\n"
 
