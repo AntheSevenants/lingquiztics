@@ -86,8 +86,9 @@ for team_name in team_names:
                     right_image = right_question["images"][0]
 
                     qmd_content += f"& \\\\\n\
-\\includegraphics[width=0.23\\textwidth]{{{left_image}}} & \\includegraphics[width=0.23\\textwidth]{{{right_image}}} \\\\\n\
+\\includegraphics[width=0.20\\textwidth]{{{left_image}}} & \\includegraphics[width=0.20\\textwidth]{{{right_image}}} \\\\\n\
 {l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
+..................................................... & ..................................................... \\\\\n\
 \\hline\n"
                     
                     if q_index == 2:
