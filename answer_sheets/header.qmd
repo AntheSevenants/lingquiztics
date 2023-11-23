@@ -9,7 +9,8 @@ format:
           \usepackage{graphicx}
           \pagenumbering{gobble}
           \usepackage{fontspec}
-          \setmainfont[ExternalLocation=answer_sheets/]{Arial.ttf}
+          \usepackage{amssymb}
+          \setmainfont[ExternalLocation=answer_sheets/, ItalicFont=Arial Italic.ttf, Ligatures=TeX]{Arial.ttf}
     geometry:
       - top=20mm
       - left=20mm
