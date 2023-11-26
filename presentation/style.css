@@ -31,3 +31,10 @@ video {
     max-height: 35vh !important;
     width: auto;
 }
+
+.v-center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+  }
