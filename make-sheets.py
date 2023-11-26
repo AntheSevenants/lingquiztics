@@ -46,6 +46,14 @@ if args.team_names is not None and not key:
         team_names = reader.read().split("\n")
 
 for team_name in team_names:
+    qmd_content += lingquiztics.tools.render_header("Double your points!", team_name)
+
+    qmd_content += "\\Large Please select the round for which you want your points to be doubled. \\Huge\n\n"
+
+    qmd_content += "\n".join([ f"1. $\\square$ {round_name}" for round_name in rounds if not round_name.startswith("durante_") ])
+    qmd_content += "\n\n \\normalsize"
+    qmd_content += "\n\n{{< pagebreak >}}\n\n"
+
     for round_no, quiz_round in enumerate(rounds):
         print(quiz_round)
 
@@ -161,12 +169,12 @@ for team_name in team_names:
 \\endgroup\n\
 ```\n\n"
 
-        if not durante:
-            qmd_content += "```{=latex}\n\
-\\begin{center}\n\
-\\LARGE $\\square$ DOUBLE MY POINTS FOR THIS ROUND\n\
-\\end{center}\n\
-```"
+#         if not durante:
+#             qmd_content += "```{=latex}\n\
+# \\begin{center}\n\
+# \\LARGE $\\square$ DOUBLE MY POINTS FOR THIS ROUND\n\
+# \\end{center}\n\
+# ```"
 
         if round_no + 1 != len(rounds):
             qmd_content += "\n\n{{< pagebreak >}}\n\n"
