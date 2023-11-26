@@ -15,6 +15,8 @@ parser.add_argument('questions', type=str,
 					help='Path to the JSON file containing the questions')
 parser.add_argument('beamer_header', type=str,
 					help='Path to the Quarto file containing the presentation header')
+parser.add_argument('beamer_footer', type=str,
+					help='Path to the Quarto file containing the presentation footer')
 parser.add_argument('--output_file', type=str, nargs='?', default="presentation.html", help='Filename of the presentation')
 parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
 parser.add_argument('--keep_md', type=bool, nargs='?', default=False, help='Whether to keep the Markdown file')
@@ -56,6 +58,10 @@ for quiz_round in rounds:
         if not revision_round:
             qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
 
+with open(args.beamer_footer, "rt") as reader:
+    qmd_footer = reader.read()
+
+qmd_content += f"\n\n{qmd_footer}"
 
 with open(TEMP_FILENAME, "wt") as writer:
     writer.write(qmd_content)
