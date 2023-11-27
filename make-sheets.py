@@ -96,10 +96,18 @@ for team_name in team_names:
                     left_image = left_question["images"][0]
                     right_image = right_question["images"][0]
 
+                    left_answer = left_question["answer"]
+                    right_answer = right_question["answer"]
+
                     qmd_content += f"& \\\\\n\
-\\includegraphics[width=0.20\\textwidth]{{{left_image}}} & \\includegraphics[width=0.20\\textwidth]{{{right_image}}} \\\\\n\
-{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
+\\includegraphics[width=0.20\\textwidth]{{{left_image}}} & \\includegraphics[width=0.20\\textwidth]{{{right_image}}}\\\\\n"
+                    
+                    if not key:
+                        qmd_content += f"{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
 ..................................................... & ..................................................... \\\\\n\
+\\hline\n"
+                    else:
+                        qmd_content += f"{l_index}.{left_answer} & {r_index}. {right_answer} \\\\\n\
 \\hline\n"
                     
                     if q_index == 2:
