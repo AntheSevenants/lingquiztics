@@ -11,7 +11,7 @@ def make_text(question):
     if not "description" in question:
         return question["question"]
 
-    return question["description"] + " " + question["question"]
+    return f"{question['description']} **{question['question']}**"
 
 def make_text_revision(question):
     text_revision = f"{question['question']}\n\n{question['answer']}"
