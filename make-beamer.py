@@ -42,20 +42,20 @@ for quiz_round in rounds:
     quiz_round = quiz_round.replace("durante_", "")
 
     for revision_round in [ False, True ]:
-        if not revision_round and durante:
+        if not revision_round and durante and quiz_round != "Break":
             qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
             continue
 
         # Add rounds section
         if not revision_round:
             qmd_content += f"# {quiz_round}\n\n"
-        else:
+        elif quiz_round != "Break":
             qmd_content += f"# {quiz_round} (revision)\n\n"
 
         for index, question in enumerate(questions):
             qmd_content += lingquiztics.questions.output_question(question, index, revision_round)
 
-        if not revision_round:
+        if not revision_round and quiz_round != "Break":
             qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
 
 with open(args.beamer_footer, "rt") as reader:
