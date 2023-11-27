@@ -57,6 +57,9 @@ for team_name in team_names:
     for round_no, quiz_round in enumerate(rounds):
         print(quiz_round)
 
+        if quiz_round == "Break":
+            continue
+
         questions = rounds[quiz_round]
 
         durante = quiz_round.startswith("durante_")
