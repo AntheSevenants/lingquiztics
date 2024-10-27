@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard{% endblock %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+    th,
+    td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1 style="text-align: center;" class="mb-4">Leaderboard</h1>
+<div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="showAllRows()" class="btn btn-aqua">Show Full Table</button>
+    <button onclick="revealNextRow()" class="btn btn-aqua">Reveal Next Row</button>
+</div>
+<table id="leaderboardTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="col-1">Place</th>
+            <th scope="col" class="col-4">Team</th>
+            <th scope="col" class="col-1">Total Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for team, score in scores.items() %}
+        <tr class="leaderboard-row hidden">
+            <td>{{ loop.index }}</td>
+            <td>{{ team }}</td>
+            <td>{{ score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    // Function to reveal all rows at once
+    function showAllRows() {
+        const rows = document.querySelectorAll('.leaderboard-row');
+        rows.forEach(row => row.classList.remove('hidden'));
+    }
+
+    // Reveal rows from last to first
+    let currentRow = document.querySelectorAll('.leaderboard-row').length - 1;
+    function revealNextRow() {
+        const rows = document.querySelectorAll('.leaderboard-row');
+        if (currentRow >= 0) {
+            rows[currentRow].classList.remove('hidden');
+            currentRow--;
+        }
+    }
+</script>
+{% endblock %}
