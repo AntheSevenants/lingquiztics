@@ -1,4 +1,5 @@
 import json
+import os.path
 import lingquiztics.tools
 
 def load(path):
@@ -21,7 +22,7 @@ def make_text_revision(question):
 
     return text_revision
 
-def output_question(question, index, revision_round=False, mc_bold=False):
+def output_question(question, index, revision_round=False, mc_bold=False, base_dir=""):
     qmd_content = ""
 
     if not "question" in question:
@@ -56,7 +57,8 @@ def output_question(question, index, revision_round=False, mc_bold=False):
             suffix = "{.img-small}"
 
         for image_file in question[images_key]:
-            qmd_content += f"![]({image_file}){suffix}\n"
+            relative_image_file = os.path.join(base_dir, image_file)
+            qmd_content += f"![]({relative_image_file}){suffix}\n"
 
     # Question itself (only displays on advance)
     if not revision_round:
@@ -66,13 +68,15 @@ def output_question(question, index, revision_round=False, mc_bold=False):
     # Add audio/video after question (more fair)
     if audio_key in question:
         audio_file = question[audio_key]
+        relative_audio_file = os.path.join(base_dir, audio_file)
         qmd_content += f". . .\n\n"
-        qmd_content += f"<audio style='display: none;' src='{audio_file}' controls></audio>\n\n"
+        qmd_content += f"<audio style='display: none;' src='{relative_audio_file}' controls></audio>\n\n"
 
     if video_key in question:
         video_file = question[video_key]
+        relative_video_file = os.path.join(base_dir, video_file)
         qmd_content += f". . .\n\n"
-        qmd_content += f"<video src='{video_file}'></video>\n\n"
+        qmd_content += f"<video src='{relative_video_file}'></video>\n\n"
 
     if not "choices" in question and revision_round:
         qmd_content += f"\n\n. . .\n\n**{question['answer']}**\n\n"
@@ -109,6 +113,6 @@ def output_question(question, index, revision_round=False, mc_bold=False):
 :::\n\n"
     
     if revision_round and "choices" in question and not mc_bold:
-        qmd_content += output_question(question, index, revision_round, mc_bold=True)
+        qmd_content += output_question(question, index, revision_round, mc_bold=True, base_dir=base_dir)
     
     return qmd_content

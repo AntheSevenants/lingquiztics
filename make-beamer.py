@@ -6,6 +6,8 @@ import argparse
 import lingquiztics.questions
 import lingquiztics.tools
 
+from pathlib import Path
+
 #
 # Argument parsing
 #
@@ -28,6 +30,8 @@ no_chain = args.no_chain is not False
 
 with open(args.beamer_header, "rt") as reader:
     qmd_content = reader.read()
+
+questions_basedir = Path(args.questions).parent
 
 qmd_content = f"{qmd_content}\n\n"
 
@@ -53,7 +57,7 @@ for quiz_round in rounds:
             qmd_content += f"# {quiz_round} (revision)\n\n"
 
         for index, question in enumerate(questions):
-            qmd_content += lingquiztics.questions.output_question(question, index, revision_round)
+            qmd_content += lingquiztics.questions.output_question(question, index, revision_round, base_dir=questions_basedir)
 
         if not revision_round and quiz_round != "Break":
             qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
