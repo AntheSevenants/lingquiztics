@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Input scores{% endblock %}
+{% block head %}
+{{ super() }}
+
+<script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+<style>
+    th {
+        vertical-align: top;
+    }
+
+    td.total {
+        background-color: #e5fff6;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<h1 class="mb-4">Input Scores</h1>
+<table class="table table-striped-columns table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="col-1">Round</th>
+            {% for team in teams %}
+            <th scope="col" class="col-1">{{ team }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for round in range(1, num_rounds + 1) %}
+        <tr>
+            <th>{{ rounds[round - 1] | replace('durante_', '') }}</th>
+            {% for team in teams %}
+            <td>
+                <input type="number" id="score_{{ team | replace(' ', '') }}_{{ round }}" min="0" max="10" step="0.5"
+                    value="{{ scores[team][round - 1] }}" oninput="updateScore('{{ team }}', {{ round }}, this.value)">
+                <input type="radio" name="double_{{ team | replace(' ', '') }}"
+                    id="double_{{ team | replace(' ', '') }}_{{ round }}" {% if double_rounds[team]==round %}checked{%
+                    endif %} onclick="updateDoubleRound('{{ team }}', {{ round }})"> x2
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            {% for team in teams %}
+            <td id="total_{{ team | replace(' ', '') }}" class="total">{{ totals[team] }}</td>
+            {% endfor %}
+        </tr>
+    </tfoot>
+</table>
+<a class="btn btn-aqua" href="{{ url_for('leaderboard') }}">Leaderboard</a>
+{% endblock %}
