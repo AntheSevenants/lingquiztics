@@ -173,7 +173,11 @@ for team_name in team_names:
             if key:
                 # Regular answesr
                 if "choices" not in question:
-                    row_content = f"{question['answer']}"
+                    corrector_explanation = ""
+                    if "corrector_note" in question:
+                        corrector_explanation = f" ({question['corrector_note']})"
+
+                    row_content = f"{question['answer']}{corrector_explanation}"
                 # MC answer
                 else:
                     correct_index = question["choices"].index(question["answer"])
