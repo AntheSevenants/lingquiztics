@@ -174,10 +174,12 @@ for team_name in team_names:
                 # Regular answesr
                 if "choices" not in question:
                     corrector_explanation = ""
+                    prefix = ""
                     if "corrector_note" in question:
                         corrector_explanation = f" ({question['corrector_note']})"
+                        prefix = "\\Large "
 
-                    row_content = f"{question['answer']}{corrector_explanation}"
+                    row_content = f"{prefix}{question['answer']}{corrector_explanation}"
                 # MC answer
                 else:
                     correct_index = question["choices"].index(question["answer"])
