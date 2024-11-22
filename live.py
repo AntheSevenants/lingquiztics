@@ -156,4 +156,4 @@ DATA_FILE = args.data_file
 rounds = lingquiztics.questions.load(args.questions)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=args.port)
+    app.run(debug=True, port=args.port, host="0.0.0.0")
