@@ -163,3 +163,10 @@ shuffle/*
 !shuffle/*.sh
 
 quiz*/
+
+*.pdf
+/*.qmd
+/*.zip
+/*.sh
+/*.html
+/*_files
