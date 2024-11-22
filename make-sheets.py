@@ -50,7 +50,7 @@ for team_name in team_names:
 
     qmd_content += "\\Large Please select the round for which you want your points to be doubled. \\Huge\n\n"
 
-    qmd_content += "\n".join([ f"1. $\\square$ {round_name}" for round_name in rounds if not round_name.startswith("durante_") ])
+    qmd_content += "\n".join([ f"1. $\\square$ {round_name}" for round_name in rounds if not round_name.startswith("durante_") and round_name != "Break" ])
     qmd_content += "\n\n \\normalsize"
     qmd_content += "\n\n{{< pagebreak >}}\n\n"
 
