@@ -70,6 +70,11 @@ for team_name in team_names:
         quiz_round = quiz_round.replace("durante_", "")
 
         qmd_content += lingquiztics.tools.render_header(quiz_round, team_name)
+
+        if "durante":
+            if "question_general" in questions[0]:
+                general_question = questions[0]["question_general"]
+                qmd_content += f"```{{=latex}}\n\\begin{{center}}\n\\large {general_question}\n\\end{{center}}\n```\n"
         
         table_start = "```{=latex}\n\
 \\begingroup\n\
@@ -106,8 +111,8 @@ for team_name in team_names:
                     left_answer = left_question["answer"]
                     right_answer = right_question["answer"]
 
-                    qmd_content += f"& \\\\\n\
-\\includegraphics[width=0.20\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.20\\textwidth]{{{relative_right_image}}}\\\\\n"
+                    qmd_content += f"\
+\\includegraphics[width=0.30\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.30\\textwidth]{{{relative_right_image}}}\\\\\n"
                     
                     if not key:
                         qmd_content += f"{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
@@ -116,10 +121,10 @@ for team_name in team_names:
                         qmd_content += f"{l_index}.{left_answer} & {r_index}. {right_answer} \\\\\n\
 \\hline\n"
                     
-                    if q_index == 2:
-                         qmd_content += table_end
-                         qmd_content += "\n\n{{< pagebreak >}}\n\n"
-                         qmd_content += table_start
+                    # if q_index == 2:
+                    #      qmd_content += table_end
+                    #      qmd_content += "\n\n{{< pagebreak >}}\n\n"
+                    #      qmd_content += table_start
 
                 qmd_content += table_end
                 qmd_content += "\n\n{{< pagebreak >}}\n\n"
