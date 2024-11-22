@@ -4,6 +4,8 @@ import os
 import sys
 import math
 
+from pathlib import Path
+
 import lingquiztics.questions
 import lingquiztics.tools
 
@@ -35,6 +37,8 @@ key = args.key is not False
 qmd_content = f"{qmd_content}\n\n"
 
 rounds = lingquiztics.questions.load(args.questions)
+
+questions_basedir = Path(args.questions).parent
 
 if not key:
     team_names = [ " " ]
@@ -96,11 +100,14 @@ for team_name in team_names:
                     left_image = left_question["images"][0]
                     right_image = right_question["images"][0]
 
+                    relative_left_image = os.path.join(questions_basedir, left_image)
+                    relative_right_image = os.path.join(questions_basedir, right_image)
+
                     left_answer = left_question["answer"]
                     right_answer = right_question["answer"]
 
                     qmd_content += f"& \\\\\n\
-\\includegraphics[width=0.20\\textwidth]{{{left_image}}} & \\includegraphics[width=0.20\\textwidth]{{{right_image}}}\\\\\n"
+\\includegraphics[width=0.20\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.20\\textwidth]{{{relative_right_image}}}\\\\\n"
                     
                     if not key:
                         qmd_content += f"{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
