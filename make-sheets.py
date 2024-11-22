@@ -176,7 +176,7 @@ for team_name in team_names:
                     corrector_explanation = ""
                     prefix = ""
                     if "corrector_note" in question:
-                        corrector_explanation = f" ({question['corrector_note']})"
+                        corrector_explanation = f"\\color{{gray}}~({question['corrector_note']})\\color{{black}}"
                         prefix = "\\Large "
 
                     row_content = f"{prefix}{question['answer']}{corrector_explanation}"
