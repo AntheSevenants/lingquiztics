@@ -112,7 +112,7 @@ for team_name in team_names:
                     right_answer = right_question["answer"]
 
                     qmd_content += f"\
-\\includegraphics[width=0.30\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.30\\textwidth]{{{relative_right_image}}}\\\\\n"
+\\includegraphics[width=0.28\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.28\\textwidth]{{{relative_right_image}}}\\\\\n"
                     
                     if not key:
                         qmd_content += f"{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
