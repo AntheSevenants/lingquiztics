@@ -2,7 +2,6 @@
 {% block title %}Input scores{% endblock %}
 {% block head %}
 {{ super() }}
-
 <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
 <script src="{{ url_for('static', filename='main.js') }}"></script>
 
@@ -36,9 +35,9 @@
             <td>
                 <input type="number" id="score_{{ team | replace(' ', '') }}_{{ round }}" min="0" max="10" step="0.5"
                     value="{{ scores[team][round - 1] }}" oninput="updateScore('{{ team }}', {{ round }}, this.value)">
-                <input type="radio" name="double_{{ team | replace(' ', '') }}"
+                <span class="double"><input type="radio" name="double_{{ team | replace(' ', '') }}"
                     id="double_{{ team | replace(' ', '') }}_{{ round }}" {% if double_rounds[team]==round %}checked{%
-                    endif %} onclick="updateDoubleRound('{{ team }}', {{ round }})"> x2
+                    endif %} onclick="updateDoubleRound('{{ team }}', {{ round }})"> x2</span>
             </td>
             {% endfor %}
         </tr>
@@ -54,4 +53,15 @@
     </tfoot>
 </table>
 <a class="btn btn-aqua" href="{{ url_for('leaderboard') }}">Leaderboard</a>
+
+
+<script>
+    let double = {{ "true" if double else "false" }};
+    
+    if (!double) {
+        let radioButons = document.querySelectorAll("span[class=double]");
+        radioButons.forEach(button => button.style.display = "none");
+    }
+</script>
+
 {% endblock %}

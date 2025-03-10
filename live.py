@@ -61,7 +61,7 @@ def set_rounds():
 def input_scores():
     data = load_data()
     total_scores = calculate_total_scores(data)
-    return render_template('input_scores.html', teams=data['scores'].keys(), num_rounds=data['num_rounds'], scores=data['scores'], double_rounds=data['double_rounds'], rounds=data['rounds'], totals=total_scores)
+    return render_template('input_scores.html', teams=data['scores'].keys(), num_rounds=data['num_rounds'], scores=data['scores'], double_rounds=data['double_rounds'], rounds=data['rounds'], totals=total_scores, double=double_points)
 
 @app.route('/leaderboard')
 def leaderboard():
@@ -150,9 +150,11 @@ parser.add_argument('team_names', type=str,
 parser.add_argument('data_file', type=str,
 					help='Path where state will be stored')
 parser.add_argument('--port', type=int, nargs='?', default="5000", help='Port to run the application on')
+parser.add_argument('--double_points', type=bool, nargs='?', default=False, help='Whether to give opportunity to double points')
 args = parser.parse_args()
 
 DATA_FILE = args.data_file
+double_points = args.double_points is not False
 rounds = lingquiztics.questions.load(args.questions)
 
 if __name__ == '__main__':
