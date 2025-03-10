@@ -22,11 +22,13 @@ parser.add_argument('beamer_footer', type=str,
 parser.add_argument('--output_file', type=str, nargs='?', default="presentation.html", help='Filename of the presentation')
 parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
 parser.add_argument('--keep_md', type=bool, nargs='?', default=False, help='Whether to keep the Markdown file')
+parser.add_argument('--dutch', type=bool, nargs='?', default=False, help='Set everything to Dutch')
 args = parser.parse_args()
 
 TEMP_FILENAME = "presentation.qmd"
 
 no_chain = args.no_chain is not False
+is_dutch = args.dutch is not False
 
 with open(args.beamer_header, "rt") as reader:
     qmd_content = reader.read()
@@ -47,20 +49,29 @@ for quiz_round in rounds:
 
     for revision_round in [ False, True ]:
         if not revision_round and durante and quiz_round != "Break":
-            qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
+            if not is_dutch:
+                qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
+            else:
+                qmd_content += f"# Geef jullie antwoorden af voor {quiz_round}!\n\n"
             continue
 
         # Add rounds section
         if not revision_round:
             qmd_content += f"# {quiz_round}\n\n"
         elif quiz_round != "Break":
-            qmd_content += f"# {quiz_round} (revision)\n\n"
+            if not is_dutch:
+                qmd_content += f"# {quiz_round} (revision)\n\n"
+            else:
+                qmd_content += f"# {quiz_round} (verbetering)\n\n"
 
         for index, question in enumerate(questions):
-            qmd_content += lingquiztics.questions.output_question(question, index, revision_round, base_dir=questions_basedir)
+            qmd_content += lingquiztics.questions.output_question(question, index, revision_round, base_dir=questions_basedir, dutch=is_dutch)
 
         if not revision_round and quiz_round != "Break":
-            qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
+            if not is_dutch:
+                qmd_content += f"# Please hand in your answers for {quiz_round}!\n\n"
+            else:
+                qmd_content += f"# Geef jullie antwoorden af voor {quiz_round}!\n\n"
 
 with open(args.beamer_footer, "rt") as reader:
     qmd_footer = reader.read()
