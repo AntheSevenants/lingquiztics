@@ -35,6 +35,7 @@
             <td>
                 <input type="number" id="score_{{ team | replace(' ', '') }}_{{ round }}" min="0" max="10" step="0.5"
                     value="{{ scores[team][round - 1] }}" oninput="updateScore('{{ team }}', {{ round }}, this.value)">
+                    <br>
                 <span class="double"><input type="radio" name="double_{{ team | replace(' ', '') }}"
                     id="double_{{ team | replace(' ', '') }}_{{ round }}" {% if double_rounds[team]==round %}checked{%
                     endif %} onclick="updateDoubleRound('{{ team }}', {{ round }})"> x2</span>
