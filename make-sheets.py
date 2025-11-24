@@ -23,11 +23,13 @@ parser.add_argument('--key', type=bool, nargs='?', default=False, help='Whether 
 parser.add_argument('--output_file', type=str, nargs='?', default="answer_sheets.pdf", help='Filename of the answer sheets')
 parser.add_argument('--keep_md', type=bool, nargs='?', default=False, help='Whether to keep the Markdown file')
 parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
+parser.add_argument('--double_points', type=bool, nargs='?', default=False, help='Whether to give opportunity to double points')
 args = parser.parse_args()
 
 TEMP_FILENAME = "answer_sheets.qmd"
 
 no_chain = args.no_chain is not False
+double_points = args.double_points is not False
 
 with open(args.sheets_header, "rt") as reader:
     qmd_content = reader.read()
@@ -50,14 +52,12 @@ if args.team_names is not None and not key:
         team_names = reader.read().split("\n")
 
 for team_name in team_names:
-    if not key:
+    if not key and double_points:
         qmd_content += lingquiztics.tools.render_header("Double your points!", team_name)
     
         qmd_content += "\\Large Please select the round for which you want your points to be doubled. \\Huge\n\n"
     
         qmd_content += "\n".join([ f"1. $\\square$ {round_name}" for round_name in rounds if not round_name.startswith("durante_") and  round_name != "Break" ])
-        qmd_content += "\n\n \\normalsize"
-        qmd_content += "\n\n{{< pagebreak >}}\n\n"
 
     for round_no, quiz_round in enumerate(rounds):
         print(quiz_round)
@@ -113,7 +113,7 @@ for team_name in team_names:
                     right_answer = right_question["answer"]
 
                     qmd_content += f"\
-\\includegraphics[width=0.30\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.30\\textwidth]{{{relative_right_image}}}\\\\\n"
+\\includegraphics[width=0.28\\textwidth]{{{relative_left_image}}} & \\includegraphics[width=0.28\\textwidth]{{{relative_right_image}}}\\\\\n"
                     
                     if not key:
                         qmd_content += f"{l_index}. ..................................................... & {r_index}. ..................................................... \\\\\n\
