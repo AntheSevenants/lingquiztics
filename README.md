@@ -57,6 +57,7 @@ Questions are defined as objects. Multiple attributes are supported.
 - `audio_revision`: a filename for an audio file, which will be included in the presentation during the revision round. *Optional.*
 - `video_revision`: a filename for a video file, which will be included in the presentation during the revision round. *Optional.*
 - `corrector_note`: add a note for the correctors; will be appended after the answer in the key, between brackets. *Optional*
+- `corrector_answer`: the answer to the question, appears on the key only. *Optional.*
 - `question_general`: add this to the first question of a table round (`durante_`); it will add an overarching question at the top of the page. Useful for image rounds. *Optional*
 
 If specific revision media is not defined, the media for the normal question will be re-used. Make sure your media is accessible from where your presentation is served. The basename of the quiz folder is automatically added, so define paths relative from your questions JSON file.
