@@ -37,6 +37,16 @@ def output_question(question, index, revision_round=False, mc_bold=False, base_d
     else:
         qmd_content += f"## Vraag {index + 1}{{.text-center}}\n\n"
 
+    if not revision_round:
+        revision_text = lingquiztics.questions.make_text(question)
+    else:
+        revision_text = lingquiztics.questions.make_text_revision(question)
+
+    # Add speaker notes
+    qmd_content += f"::: {{.notes}}\n\
+{revision_text}\n\
+:::\n\n"
+
     # We can show different media if necessary
     images_key = "images"
     audio_key = "audio"
@@ -104,16 +114,6 @@ def output_question(question, index, revision_round=False, mc_bold=False, base_d
             qmd_content += ":::\n"
 
         qmd_content += "\n\n"
-
-    if not revision_round:
-        revision_text = lingquiztics.questions.make_text(question)
-    else:
-        revision_text = lingquiztics.questions.make_text_revision(question)
-
-    # Add speaker notes
-    qmd_content += f"::: {{.notes}}\n\
-{revision_text}\n\
-:::\n\n"
     
     if revision_round and "choices" in question and not mc_bold:
         qmd_content += output_question(question, index, revision_round, mc_bold=True, base_dir=base_dir, dutch=dutch)
