@@ -24,6 +24,7 @@ parser.add_argument('--output_file', type=str, nargs='?', default="answer_sheets
 parser.add_argument('--keep_md', action='store_true', help='Whether to keep the Markdown file')
 parser.add_argument('--no_chain', action='store_true', help='Whether to chain the output to Quarto immediately')
 parser.add_argument('--double_points', action='store_true', help='Whether to give opportunity to double points')
+parser.add_argument('--dutch', action='store_true', nargs='?', help='Set everything to Dutch')
 args = parser.parse_args()
 
 TEMP_FILENAME = "answer_sheets.qmd"
@@ -53,9 +54,15 @@ if args.team_names is not None and not key:
 
 for team_name in team_names:
     if not key and double_points:
-        qmd_content += lingquiztics.tools.render_header("Double your points!", team_name)
+        if not args.dutch: 
+            qmd_content += lingquiztics.tools.render_header("Double your points!", team_name)
     
-        qmd_content += "\\Large Please select the round for which you want your points to be doubled. \\Huge\n\n"
+            qmd_content += "\\Large Please select the round for which you want your points to be doubled. \\Huge\n\n"
+        else:
+            qmd_content += lingquiztics.tools.render_header("Verdubbel je punten!", team_name)
+    
+            qmd_content += "\\Large Kies een ronde waarvoor je je punten wilt verdubbelen. \\Huge\n\n"
+
     
         qmd_content += "\n".join([ f"1. $\\square$ {round_name}" for round_name in rounds if not round_name.startswith("durante_") and  round_name != "Break" ])
        
