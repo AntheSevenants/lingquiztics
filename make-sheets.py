@@ -21,9 +21,9 @@ parser.add_argument('sheets_header', type=str,
 parser.add_argument('--team_names', type=str, nargs='?', default=None, help='Path to text file with team names (one per line)')
 parser.add_argument('--key', type=bool, nargs='?', default=False, help='Whether to print a key sheet')
 parser.add_argument('--output_file', type=str, nargs='?', default="answer_sheets.pdf", help='Filename of the answer sheets')
-parser.add_argument('--keep_md', type=bool, nargs='?', default=False, help='Whether to keep the Markdown file')
-parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
-parser.add_argument('--double_points', type=bool, nargs='?', default=False, help='Whether to give opportunity to double points')
+parser.add_argument('--keep_md', action='store_true', help='Whether to keep the Markdown file')
+parser.add_argument('--no_chain', action='store_true', help='Whether to chain the output to Quarto immediately')
+parser.add_argument('--double_points', action='store_true', help='Whether to give opportunity to double points')
 args = parser.parse_args()
 
 TEMP_FILENAME = "answer_sheets.qmd"
@@ -81,6 +81,7 @@ for team_name in team_names:
         
         table_start = "```{=latex}\n\
 \\begingroup\n\
+\\normalsize\n\
 \\setlength{\\tabcolsep}{20pt}\n\
 \\renewcommand{\\arraystretch}{1.5}\n\
 \\begin{tabularx}{\\textwidth}{|>{\\centering\\arraybackslash}X|>{\\centering\\arraybackslash}X|}\n\
