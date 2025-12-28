@@ -24,7 +24,7 @@ parser.add_argument('--output_file', type=str, nargs='?', default="answer_sheets
 parser.add_argument('--keep_md', action='store_true', help='Whether to keep the Markdown file')
 parser.add_argument('--no_chain', action='store_true', help='Whether to chain the output to Quarto immediately')
 parser.add_argument('--double_points', action='store_true', help='Whether to give opportunity to double points')
-parser.add_argument('--dutch', action='store_true', nargs='?', help='Set everything to Dutch')
+parser.add_argument('--dutch', action='store_true', help='Set everything to Dutch')
 args = parser.parse_args()
 
 TEMP_FILENAME = "answer_sheets.qmd"
