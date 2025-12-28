@@ -20,9 +20,9 @@ parser.add_argument('beamer_header', type=str,
 parser.add_argument('beamer_footer', type=str,
 					help='Path to the Quarto file containing the presentation footer')
 parser.add_argument('--output_file', type=str, nargs='?', default="presentation.html", help='Filename of the presentation')
-parser.add_argument('--no_chain', type=bool, nargs='?', default=False, help='Whether to chain the output to Quarto immediately')
-parser.add_argument('--keep_md', type=bool, nargs='?', default=False, help='Whether to keep the Markdown file')
-parser.add_argument('--dutch', type=bool, nargs='?', default=False, help='Set everything to Dutch')
+parser.add_argument('--no_chain', action='store_true', nargs='?', help='Whether to chain the output to Quarto immediately')
+parser.add_argument('--keep_md', action='store_true', nargs='?', help='Whether to keep the Markdown file')
+parser.add_argument('--dutch', action='store_true', nargs='?', help='Set everything to Dutch')
 args = parser.parse_args()
 
 TEMP_FILENAME = "presentation.qmd"
