@@ -145,7 +145,7 @@ for team_name in team_names:
             else:
                 qmd_content += "```{=latex}\n\
 {\n\
-\Large\n\
+\\Large\n\
 ```\n\n"
 
                 for index, question in enumerate(questions):
@@ -172,7 +172,7 @@ for team_name in team_names:
 
         qmd_content += "```{=latex}\n\
 \\begingroup\n\
-{\Huge\n\
+{\\Huge\n\
 \\setlength{\\tabcolsep}{20pt}\n\
 \\renewcommand{\\arraystretch}{1.5}\n\
 \\begin{tabularx}{\\textwidth}{|c|X|}\n\
@@ -190,7 +190,7 @@ for team_name in team_names:
                         corrector_explanation = f"\\color{{gray}}~({question['corrector_note']})\\color{{black}}"
                         prefix = "\\Large "
 
-                    answer = question["answer"]
+                    answer = question["answer"].replace("&", "\\&")
                     if "corrector_answer" in question:
                         answer = question["corrector_answer"]
 
