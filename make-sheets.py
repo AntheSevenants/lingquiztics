@@ -19,7 +19,7 @@ parser.add_argument('questions', type=str,
 parser.add_argument('sheets_header', type=str,
 					help='Path to the Quarto file containing the answer sheets header')
 parser.add_argument('--team_names', type=str, nargs='?', default=None, help='Path to text file with team names (one per line)')
-parser.add_argument('--key', type=bool, nargs='?', default=False, help='Whether to print a key sheet')
+parser.add_argument('--key', action='store_true', help='Whether to print a key sheet')
 parser.add_argument('--output_file', type=str, nargs='?', default="answer_sheets.pdf", help='Filename of the answer sheets')
 parser.add_argument('--keep_md', action='store_true', help='Whether to keep the Markdown file')
 parser.add_argument('--no_chain', action='store_true', help='Whether to chain the output to Quarto immediately')
